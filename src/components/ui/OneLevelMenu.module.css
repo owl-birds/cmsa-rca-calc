@@ -1,0 +1,29 @@
+.menu {
+  display: grid;
+  justify-content: center;
+}
+.title {
+  text-align: center;
+  margin: 10px;
+}
+.formWrapper {
+  display: grid;
+  gap: 1rem;
+}
+.inputWrapper {
+  display: grid;
+  gap: 1rem;
+}
+.btn {
+  font-weight: 700;
+  padding: 10px;
+  color: rgb(62, 62, 63);
+  background-color: #fff;
+  border-radius: 5px;
+  border: 0.5px solid rgb(62, 62, 63);
+  margin: 20px;
+}
+.btn:hover {
+  background-color: rgb(233, 233, 233);
+  cursor: pointer;
+}
