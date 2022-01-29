@@ -50,7 +50,11 @@ const OneLevel = () => {
       {state.isLoaded ? (
         <div className={classes.tableWrapper}>
           <button onClick={() => resetHandler()}>Reset</button>
-          <Table columns={state.data.columns} data={state.data} />
+          <Table
+            isEditAble={true}
+            columns={state.data.columns}
+            data={state.data}
+          />
           <OneLevelMenu yearList={uniqueYearList} />
           {ui.isOptionSelected ? (
             <>

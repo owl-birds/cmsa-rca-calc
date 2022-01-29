@@ -18,3 +18,11 @@ export const uniqueYear = (data) => {
     (col) => col !== "country" && col !== "commodity" && col !== "region"
   );
 };
+export const editCell = (data, editedValue, index, columnName) => {
+  const temp = data.map((row) => {
+    return { ...row };
+  });
+  temp.columns = data.columns;
+  temp[index][columnName] = editedValue;
+  return temp;
+};

@@ -1,0 +1,7 @@
+.cell {
+  /* border: solid 0.5px rgb(204, 196, 196); */
+  border: none;
+  padding: 1px 4px;
+  min-width: 30px;
+  height: 100%;
+}

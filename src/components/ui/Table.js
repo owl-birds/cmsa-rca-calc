@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useTable } from "react-table";
+import Cell from "./Cell";
 const Styles = styled.div`
   padding: 1rem;
 
@@ -28,7 +29,7 @@ const Styles = styled.div`
     }
   }
 `;
-const Table = ({ columns, data }) => {
+const Table = ({ columns, data, isEditAble }) => {
   // Use the state and functions returned from useTable to build your UI
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({
@@ -56,7 +57,17 @@ const Table = ({ columns, data }) => {
               <tr {...row.getRowProps()}>
                 {row.cells.map((cell) => {
                   return (
-                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                    <td {...cell.getCellProps()}>
+                      {isEditAble ? (
+                        <Cell
+                          index={row.index}
+                          columnName={cell.column.Header}
+                          value={cell.value}
+                        />
+                      ) : (
+                        cell.render("Cell")
+                      )}
+                    </td>
                   );
                 })}
               </tr>

@@ -1,32 +1,61 @@
 import classes from "./Cell.module.css";
 import { useState, useEffect, useRef } from "react";
-const Cell = (props) => {
-  //   console.log("CELL RENDERING");
+// REDUX STUFFS
+import { useDispatch } from "react-redux";
+import { EDIT_DATA } from "../../constants/actionTypes";
+const Cell = ({ value, index, columnName }) => {
   //   VAR
   // FOR THE CELL ID IMPORTANT (UNIQUE)
   //   STATE
   const [isEditMode, setIsEditMode] = useState(false);
   //   REF
   const inputRef = useRef();
+  // console.log(inputRef);
+  // REDUX
+  const dispatch = useDispatch();
   const clickToEditMode = () => setIsEditMode(() => true);
   const clickToReadMode = () => setIsEditMode(() => false);
-  const clickOutsideInput = (event) => {
-    // console.log(event.target.id);
-    // console.log(event.target.nodeName);
-    if (event.target.id !== "2") {
-      clickToReadMode();
-    }
-  };
+
   useEffect(() => {
-    document.addEventListener("click", clickOutsideInput);
+    let isInEditPart = true;
+    const clickOutsideInput = (event) => {
+      // console.log(event.target.id);
+      // console.log(event.target.nodeName);
+      if (event.target.id !== String(index)) {
+        if (inputRef.current) {
+          // console.log(index);
+          // console.log(columnName);
+          // console.log(inputRef.current.value);
+          if (inputRef.current.value === value) console.log("SAME VALUE");
+          else
+            dispatch({
+              type: EDIT_DATA,
+              index,
+              columnName,
+              editedValue: inputRef.current.value,
+            });
+        }
+        clickToReadMode();
+      }
+    };
+    if (isInEditPart) document.addEventListener("click", clickOutsideInput);
     // cleanup
-    return document.addEventListener("click", clickOutsideInput);
-  }, []);
+    return () => {
+      document.removeEventListener("click", clickOutsideInput);
+      isInEditPart = false;
+    };
+  }, [columnName, index, dispatch, value]);
   return isEditMode ? (
-    <input ref={inputRef} id={"2"} />
+    <input
+      className={classes.cell}
+      ref={inputRef}
+      id={index}
+      autoFocus
+      defaultValue={value}
+    />
   ) : (
-    <div id={"2"} onClick={clickToEditMode}>
-      {props.children}
+    <div className={classes.cell} id={index} onClick={clickToEditMode}>
+      {value}
     </div>
   );
 };

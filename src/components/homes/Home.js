@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <main className={classes.content}>
       <h1>HOME</h1>
-      <Cell>HELLO</Cell>
+      <Cell value={"2022"} index={0} columnName={"2010"} />
     </main>
   );
 };

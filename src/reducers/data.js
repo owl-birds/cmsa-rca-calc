@@ -1,4 +1,7 @@
-import { READ_CSV, CLEAR_STATE } from "../constants/actionTypes";
+import { READ_CSV, CLEAR_STATE, EDIT_DATA } from "../constants/actionTypes";
+// UTILS
+import { editCell } from "../helpers/utils";
+
 const data = (data = [], action) => {
   switch (action.type) {
     case READ_CSV:
@@ -11,6 +14,14 @@ const data = (data = [], action) => {
     case CLEAR_STATE:
       data = [];
       return { ...data, isLoaded: false, message: "DATA STATE CLEARED" };
+    case EDIT_DATA:
+      const editedData = editCell(
+        data.data,
+        action.editedValue,
+        action.index,
+        action.columnName
+      );
+      return { ...data, data: editedData };
     default:
       if (data.data)
         return {

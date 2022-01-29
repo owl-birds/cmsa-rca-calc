@@ -1,7 +1,9 @@
 import classes from "./TwoLevel.module.css";
+// COMPONENTS
 import DropFileInput from "../ui/DropFileInput";
 import Table from "../ui/Table";
 import TwoLevelMenu from "../ui/TwoLevelMenu";
+
 import { useDispatch, useSelector } from "react-redux";
 
 // STATE CONSTANT ACTION
@@ -15,8 +17,8 @@ const TwoLevel = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.data);
   const ui = useSelector((state) => state.ui);
-  // console.log(state);
-  console.log(ui);
+  console.log(state);
+  // console.log(ui);
   const twoLevelResult = state.isLoaded
     ? ui.isOptionSelected
       ? two_level_all(
@@ -45,7 +47,11 @@ const TwoLevel = () => {
       {state.isLoaded ? (
         <div className={classes.tableWrapper}>
           <button onClick={() => resetHandler()}>Reset</button>
-          <Table columns={state.data.columns} data={state.data} />
+          <Table
+            isEditAble={true}
+            columns={state.data.columns}
+            data={state.data}
+          />
           <TwoLevelMenu yearList={uniqueYearList} />
           {ui.isOptionSelected ? (
             <>
