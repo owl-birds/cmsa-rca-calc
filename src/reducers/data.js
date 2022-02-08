@@ -15,15 +15,22 @@ const data = (data = [], action) => {
       data = [];
       return { ...data, isLoaded: false, message: "DATA STATE CLEARED" };
     case EDIT_DATA:
-      const editedData = editCell(
+      // const editedData = editCell(
+      //   data.data,
+      //   action.editedValue,
+      //   action.index,
+      //   action.columnName
+      // );
+      data.data = editCell(
         data.data,
         action.editedValue,
         action.index,
         action.columnName
       );
-      return { ...data, data: editedData };
+      return { ...data };
     default:
       if (data.data)
+        // if data still exist
         return {
           ...data,
           isLoaded: true,

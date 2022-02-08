@@ -12,10 +12,9 @@ const findByCountry = (data, country) => {
 // ///////////
 
 // ///////////
-const findByCommodity = (data, commodity) => {
+const findByComReg = (data, comReg, col = "commodity") => {
   const result = data.filter(
-    (row) =>
-      row.commodity.trim().toLowerCase() === commodity.trim().toLowerCase()
+    (row) => row[col].trim().toLowerCase() === comReg.trim().toLowerCase()
   );
   if (result.length !== 0) return result[0];
   return { value: -1, message: "COMMODITY NOT FOUND" };
@@ -65,22 +64,28 @@ export const worldGrowthEffect = (
 // ///////////
 export const comRegEffect = (
   data,
-  commodities = [],
+  comReg = [],
   worldName = "World",
   countryName = "country",
   baseYear,
+  isCommodity = true,
   year
 ) => {
   const worldData = findByCountry(data, worldName);
   const countryData = findByCountry(data, countryName);
   const worldGrowthRate = growthRate(worldData, baseYear, year);
   let result = 0;
+  // console.log(findByComReg(countryData, "A", "commodity"));
   for (let row of worldData) {
-    const isExist = commodities.some(
-      (commodity) => commodity === row.commodity.trim().toLowerCase()
-    );
+    const isExist = isCommodity
+      ? comReg.some(
+          (commodity) => commodity === row.commodity.trim().toLowerCase()
+        )
+      : comReg.some((region) => region === row.region.trim().toLowerCase());
     if (isExist) {
-      const rowCountry = findByCommodity(countryData, row.commodity);
+      const rowCountry = isCommodity
+        ? findByComReg(countryData, row.commodity, "commodity")
+        : findByComReg(countryData, row.region, "region");
       result +=
         (growthRateRow(row, baseYear, year) - worldGrowthRate) *
         rowCountry[baseYear];
@@ -96,13 +101,16 @@ export const competitivenessEffect = (
   worldName = "World",
   countryName = "country",
   baseYear,
+  isCommodity,
   year
 ) => {
   const worldData = findByCountry(data, worldName);
   const countryData = findByCountry(data, countryName);
   let result = 0;
   for (let rowCountry of countryData) {
-    const rowWorld = findByCommodity(worldData, rowCountry.commodity);
+    const rowWorld = isCommodity
+      ? findByComReg(worldData, rowCountry.commodity, "commodity")
+      : findByComReg(worldData, rowCountry.region, "region");
     const countryRowGrowth = growthRateRow(rowCountry, baseYear, year);
     const worldRowGrowth = growthRateRow(rowWorld, baseYear, year);
     result += (countryRowGrowth - worldRowGrowth) * rowCountry[baseYear];
@@ -129,10 +137,25 @@ export const two_level = (
     worldGrowthEffect(data, worldName, countryName, baseYear, year)
   );
   const C_RE = round(
-    comRegEffect(data, com_reg, worldName, countryName, baseYear, year)
+    comRegEffect(
+      data,
+      com_reg,
+      worldName,
+      countryName,
+      baseYear,
+      isCommodity,
+      year
+    )
   );
   const COMPE_EFFECT = round(
-    competitivenessEffect(data, worldName, countryName, baseYear, year)
+    competitivenessEffect(
+      data,
+      worldName,
+      countryName,
+      baseYear,
+      isCommodity,
+      year
+    )
   );
   if (isCommodity)
     return {

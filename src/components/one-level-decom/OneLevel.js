@@ -20,7 +20,7 @@ const OneLevel = () => {
   const state = useSelector((state) => state.data);
   const ui = useSelector((state) => state.ui);
   // console.log(state);
-  console.log(ui);
+  // console.log(ui);
 
   // VARIABLES
   const oneLevelResult = state.isLoaded
@@ -34,7 +34,7 @@ const OneLevel = () => {
         )
       : null
     : null;
-  console.log(oneLevelResult);
+  // console.log(oneLevelResult);
   const uniqueYearList = state.isLoaded ? uniqueYear(state.data) : null;
   // console.log(uniqueYearList);
   const resetHandler = () => {

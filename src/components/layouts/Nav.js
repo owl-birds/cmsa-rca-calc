@@ -6,12 +6,6 @@ const Nav = () => {
       <Link className={classes.link} to="/">
         Home
       </Link>
-      <Link className={classes.link} to="/one-level">
-        One Level Decomposition
-      </Link>
-      <Link className={classes.link} to="/two-level">
-        Two Level Decomposition
-      </Link>
     </nav>
   );
 };

@@ -29,7 +29,7 @@ const Styles = styled.div`
     }
   }
 `;
-const Table = ({ columns, data, isEditAble }) => {
+const Table = ({ columns, data, isEditAble = false }) => {
   // Use the state and functions returned from useTable to build your UI
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({
