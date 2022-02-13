@@ -8,7 +8,7 @@ CMSA and RCA
 2. unzipped it
 3. go to the directory where you unzipped
 4. type in cmd npm install
-5. top start the application just type "npm run electron:start"
+5. to start the application just type "npm run electron:start"
 6. enjoy
 
 # Building the apps
