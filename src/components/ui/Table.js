@@ -63,6 +63,7 @@ const Table = ({ columns, data, isEditAble = false }) => {
                           index={row.index}
                           columnName={cell.column.Header}
                           value={cell.value}
+                          data={data}
                         />
                       ) : (
                         cell.render("Cell")

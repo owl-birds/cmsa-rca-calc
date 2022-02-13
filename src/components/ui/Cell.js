@@ -2,8 +2,10 @@ import classes from "./Cell.module.css";
 import { useState, useEffect, useRef } from "react";
 // REDUX STUFFS
 import { useDispatch } from "react-redux";
-import { EDIT_DATA } from "../../constants/actionTypes";
-const Cell = ({ value, index, columnName }) => {
+// actions
+import { editData } from "../../actions/data";
+// import { EDIT_DATA } from "../../constants/actionTypes";
+const Cell = ({ data, value, index, columnName }) => {
   //   VAR
   // FOR THE CELL ID IMPORTANT (UNIQUE)
   //   STATE
@@ -27,13 +29,18 @@ const Cell = ({ value, index, columnName }) => {
           // console.log(columnName);
           // console.log(inputRef.current.value);
           if (inputRef.current.value === value) console.log("SAME VALUE");
-          else
-            dispatch({
-              type: EDIT_DATA,
-              index,
-              columnName,
-              editedValue: inputRef.current.value,
-            });
+          else {
+            // dispatch({
+            //   type: EDIT_DATA,
+            //   index,
+            //   columnName,
+            //   editedValue: inputRef.current.value,
+            // });
+
+            // GOING INTO ACTIONS TO EDIT THE CELL
+            const editedValue = inputRef.current.value;
+            dispatch(editData(data, index, columnName, editedValue));
+          }
         }
         clickToReadMode();
       }
@@ -44,7 +51,7 @@ const Cell = ({ value, index, columnName }) => {
       document.removeEventListener("click", clickOutsideInput);
       isInEditPart = false;
     };
-  }, [columnName, index, dispatch, value]);
+  }, [columnName, index, dispatch, value, data]);
   return isEditMode ? (
     <input
       className={classes.cell}

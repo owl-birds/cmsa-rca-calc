@@ -26,13 +26,14 @@ const data = (data = [], action) => {
       //   action.index,
       //   action.columnName
       // );
-      data.data = editCell(
-        data.data,
-        action.editedValue,
-        action.index,
-        action.columnName
-      );
-      return { ...data };
+      // data.data = editCell(
+      //   data.data,
+      //   action.editedValue,
+      //   action.index,
+      //   action.columnName
+      // );
+      console.log(action.editedData);
+      return { ...data, data: action.editedData };
     case SELF_INPUT_DATA:
       if (action.cmsaType === 3) {
         console.log(action.cmsaType, "THREE");

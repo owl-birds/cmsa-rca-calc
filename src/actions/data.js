@@ -6,9 +6,6 @@ import {
   EDIT_DATA,
 } from "../constants/actionTypes";
 
-// REDUX
-import { useSelector } from "react-redux";
-
 // helper functions
 import { editCell } from "../helpers/utils";
 
@@ -28,8 +25,12 @@ export const parseCsv = (stringData) => async (dispatch) => {
   }
 };
 export const editData =
-  (index, columnName, editedValue) => async (dispatch) => {
-    const data = useSelector((state) => state.data);
+  (data, index, columnName, editedValue) => async (dispatch) => {
     try {
-    } catch (error) {}
+      const temp = editCell(data, editedValue, index, columnName);
+      // console.log(temp);
+      dispatch({ type: EDIT_DATA, editedData: temp });
+    } catch (error) {
+      console.log(error);
+    }
   };
