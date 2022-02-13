@@ -1,3 +1,21 @@
+# Application to Calculate and VIsualize CMSA-RCA
+
+CMSA and RCA
+
+# to start with this project
+
+1. just zipped it
+2. unzipped it
+3. go to the directory where you unzipped
+4. type in cmd npm install
+5. top start the application just type "npm run electron:start"
+6. enjoy
+
+# Building the apps
+
+I STILL DONT TRY IT LMAO
+SO YEAH
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -1,4 +1,9 @@
-import { READ_CSV, CLEAR_STATE, EDIT_DATA } from "../constants/actionTypes";
+import {
+  READ_CSV,
+  CLEAR_STATE,
+  EDIT_DATA,
+  SELF_INPUT_DATA,
+} from "../constants/actionTypes";
 // UTILS
 import { editCell } from "../helpers/utils";
 
@@ -28,6 +33,11 @@ const data = (data = [], action) => {
         action.columnName
       );
       return { ...data };
+    case SELF_INPUT_DATA:
+      if (action.cmsaType === 3) {
+        console.log(action.cmsaType, "THREE");
+      }
+      return data;
     default:
       if (data.data)
         // if data still exist
