@@ -4,8 +4,6 @@ import {
   EDIT_DATA,
   SELF_INPUT_DATA,
 } from "../constants/actionTypes";
-// UTILS
-import { editCell } from "../helpers/utils";
 
 const data = (data = [], action) => {
   switch (action.type) {
@@ -32,7 +30,6 @@ const data = (data = [], action) => {
       //   action.index,
       //   action.columnName
       // );
-      console.log(action.editedData);
       return { ...data, data: action.editedData };
     case SELF_INPUT_DATA:
       if (action.cmsaType === 3) {
